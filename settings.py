@@ -1,7 +1,8 @@
-# Initialize App Engine and import the default settings (DB backend, etc.).
+# Initialize App Engine and imports default settings (DB backend, etc.).
 # If you want to use a different backend you have to remove all occurences
 # of "djangoappengine" from this file.
 from djangoappengine.settings_base import *
+from djangoappengine.utils import on_production_server, have_appserver
 
 import os
 
@@ -21,6 +22,7 @@ INSTALLED_APPS = (
     'autoload',
     'dbindexer',
 
+    'debug_toolbar',
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
 )
@@ -49,3 +51,20 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
+
+DEBUG = True if not on_production_server else False
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    ALLOWED_IPS = ('127.0.0.1',)
+    #INSTALLED_APPS += ('debug_toolbar',)
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.version.VersionDebugPanel',
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        #'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+    )
