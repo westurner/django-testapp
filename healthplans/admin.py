@@ -9,7 +9,7 @@ class ProviderAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'cost', )
+    list_display = ('name', 'category', 'base_rate', )
     search_fields = ('name', )
     ordering = ('name', 'category')
     prepopulated_fields = {'slug': ('name',)}

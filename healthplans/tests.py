@@ -26,11 +26,11 @@ class HealtplansModelsTest(TestCase):
                 provider=provider,
                 name="Test Plan",
                 category=Plan.PLATINUM,
-                cost=COST)
+                base_rate=COST)
         self.assertIsNotNone(plan)
         self.assertIsNotNone(plan.created_time)
         self.assertIsNotNone(plan.updated_time)
-        self.assertEqual(plan.cost, COST)
+        self.assertEqual(plan.base_rate, COST)
 
     def test_021_provider_slug(self):
         provider = Provider.objects.create(
@@ -45,7 +45,7 @@ class HealtplansModelsTest(TestCase):
                 provider=provider,
                 name="Test Plan",
                 category=Plan.PLATINUM,
-                cost=COST)
+                base_rate=COST)
         self.assertIsNotNone(plan)
         self.assertEqual(plan.slug, "Test-Plan")
 
@@ -76,7 +76,7 @@ class HealthplansViewsTest(TestCase):
                 provider=provider,
                 name="Test Plan",
                 category=Plan.PLATINUM,
-                cost=1.05)
+                base_rate=1.05)
         response = self.client.get('/plans/')
         self.assertContains(response, plan.name)
         self.assertContains(response, 'href="/plans/%s"' % plan.slug)
@@ -88,7 +88,7 @@ class HealthplansViewsTest(TestCase):
                 provider=provider,
                 name="Test Plan",
                 category=Plan.PLATINUM,
-                cost=1.05)
+                base_rate=1.05)
         response = self.client.get('/plans/%s' % plan.slug)
         self.assertContains(response, plan.name)
         self.assertContains(response, 'href="/plans/%s"' % plan.slug)
@@ -125,6 +125,6 @@ class HealthplansAdminTest(TestCase):
                 provider=provider,
                 name="Test Plan",
                 category=Plan.PLATINUM,
-                cost=1.05)
+                base_rate=1.05)
         response = self.client.get('/admin/healthplans/plan/')
         self.assertContains(response, plan.name)
