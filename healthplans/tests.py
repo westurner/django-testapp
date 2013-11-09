@@ -55,6 +55,11 @@ class HealthplansViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
 
+    def test_homepage_links(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'href="/providers/"')
+        self.assertContains(response, 'href="/plans/"')
+
     def test_provider_list(self):
         provider = Provider.objects.create(
                 name="Test Provider")  # TODO: fixtures
