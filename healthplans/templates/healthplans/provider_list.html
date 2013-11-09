@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Providers</h2>
+    <ul>
+        {% for provider in object_list %}
+        <li>
+            <a href="{{ provider.get_absolute_url }}">
+                {{ provider.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

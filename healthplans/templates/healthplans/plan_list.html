@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Plans</h2>
+    <ul>
+        {% for plan in object_list %}
+        <li>
+            <a href="{{ plan.get_absolute_url }}">
+            {{ plan.name }}
+            </a>
+            <span>{{ plan.category }}</span>
+            <span>{{ plan.cost }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
